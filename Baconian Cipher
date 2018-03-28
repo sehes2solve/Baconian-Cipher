@@ -1,0 +1,130 @@
+#include <iostream>
+#include <string>
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    char b [] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'} ;
+    char c [] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'} ;
+    do
+    {
+        cout << "Ahlan ya user ya habibi ." << endl << "What do you like to do today ?" << endl << "1- Cipher a message" << endl << "2- Decipher a message" << endl << "3- End" << endl ;
+        string h ;
+        getline(cin,h) ;
+        if(h =="1")
+        {
+            cout << "Please enter message to cipher :" << endl ;
+            string x ;
+            getline(cin,x) ;
+            for(int i = 0 ; i < int(x.length()) ; i++)
+            {
+                for (int j = 0 ; j < 26 ; j++)
+                {
+                    if (x[i] == b[j] || x[i] == c[j])
+                    {
+
+                        int k = j ;
+
+                        char y[5]={'a','a','a','a','a'} ;
+
+                        for(int m = 4 ; k > 0 ; m-=1)
+                        {
+                            if(k & 1)
+                            {
+                                y[m]='b' ;
+                            }
+                            k = k / 2 ;
+                        }
+                        cout << y[0] << y[1] << y[2] << y[3] << y[4] ;
+                        break ;
+                    }
+
+                    else if(x[i] == ' ')
+                    {
+                        cout << " " ;
+                        break ;
+                    }
+                }
+            }
+            cout << endl << endl ;
+        }
+
+        else if (h=="2")
+        {
+            cout << "Please enter message to Decipher :" << endl ;
+            string x ;
+            bool n = 0 ;
+            do {
+                    n = 0 ;
+                    getline(cin,x) ;
+                    int sum =0 ;
+                    for(int i = 0 ; i < int(x.length()) ; i++)
+                    {
+                        if (x[i] == ' ')
+                            sum++ ;
+
+                        else if ((x[i] != 'a') && (x[i] != 'b') && (x[i] != 'A') && (x[i] != 'B'))
+                        {
+                            cout << "Wronge Code !!!" << endl ;
+                            n = 1 ;
+                            break ;
+                        }
+
+                    }
+                    if(!n)
+                    {
+                        int k = x.length() - sum ;
+                        if (k%5 != 0)
+                        {
+                            n = 1 ;
+                            cout << "Wronge Code !!!" << endl ;
+                        }
+                    }
+                    string out = "" ;
+                    if(!n)
+                    {
+                        for(int i = 0 ; i < int(x.length()) ; i++)
+                        {
+                            int j = 0 ;
+                            if (x[i]== ' ')
+                                out = out + ' ';
+                            else
+                            {
+                                for(int l = 16 ,v = 0; v < 5 ; l=l/2 , v++)
+                                {
+                                    if ((x[i+v] == 'b') || (x[i+v] == 'B'))
+                                    {
+                                        j = j + l ;
+                                        if (j > 25)
+                                        {
+                                            n = 1 ;
+                                            break ;
+                                        }
+                                    }
+                                }
+                                if(n)
+                                    break ;
+                                out = out + b[j];
+                                i = i + 4 ;
+                            }
+                        }
+                    }
+                    cout << out << endl << endl;
+
+                }
+            while(n) ;
+        }
+        else if (h=="3")
+        {
+            break ;
+        }
+        else
+        {
+            cout << "wronge input !!!" ;
+        }
+
+    }while(true) ;
+
+    return (0) ;
+}
